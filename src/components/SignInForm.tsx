@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
 import authAPIs from '../api/api';
+import { AnyAction, Dispatch } from 'redux';
+import { NavigateFunction } from 'react-router';
 
-export default function SignInForm({ dispatch, navigate }) {
+interface IProp {
+  dispatch: Dispatch<AnyAction>;
+  navigate: NavigateFunction;
+}
+
+export default function SignInForm({ dispatch, navigate }: IProp) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       dispatch({

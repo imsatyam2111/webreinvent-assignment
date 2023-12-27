@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import authAPIs from '../api/api';
+import { AnyAction, Dispatch } from 'redux';
+import { NavigateFunction } from 'react-router';
 
-export default function SignUpForm({ dispatch, navigate }) {
+interface IProp {
+  dispatch: Dispatch<AnyAction>;
+  navigate: NavigateFunction;
+}
+
+export default function SignUpForm({ dispatch, navigate }: IProp) {
   const [passwordMatchError, setPasswordMatchError] = useState('');
 
   const [formData, setFormData] = useState({
@@ -12,14 +19,14 @@ export default function SignUpForm({ dispatch, navigate }) {
     confirmPassword: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setPasswordMatchError("Passwords don't match");

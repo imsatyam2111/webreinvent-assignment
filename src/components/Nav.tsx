@@ -1,9 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { AuthState } from '../reducers/authSlice';
+
+interface IAuthState {
+  auth: AuthState;
+}
 
 export default function Nav() {
-  const { isAuthenticated } = useSelector((state) => ({
+  const { isAuthenticated } = useSelector((state: IAuthState) => ({
     isAuthenticated: state?.auth?.isAuthenticated,
   }));
   const dispatch = useDispatch();
